@@ -1,96 +1,48 @@
 
-
-
-//Ora rimuoviamo i contenuti statici e usiamo l’array di oggetti
-// letterali per popolare dinamicamente il carosello.
-// Al click dell'utente sulle frecce verso sinistra o destra, 
-// la nuova immagine attiva diventerà visibile e dovremo aggiungervi titolo e testo.
-
-
-// bersagliamo lo slider
-const sliderElement = document.getElementById("slider");
-
 const images = [
     {
         image: 'img/01.webp',
         title: 'Marvel\'s Spiderman Miles Morale',
         text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
-    }, {
+    }, 
+    {
         image: 'img/02.webp',
         title: 'Ratchet & Clank: Rift Apart',
         text: 'Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.',
-    }, {
+    }, 
+    {
         image: 'img/03.webp',
         title: 'Fortnite',
         text: "Grab all of your friends and drop into Epic Games Fortnite, a massive 100 - player face - off that combines looting, crafting, shootouts and chaos.",
-    }, {
+    }, 
+    {
         image: 'img/04.webp',
         title: 'Stray',
         text: 'Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city',
-    }, {
+    }, 
+    {
         image: 'img/05.webp',
         title: "Marvel's Avengers",
         text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
     }
 ];
+// prelevo lo slider 
+const sliderElement = document.getElementById("slider");
 
-
-// creo un elemento per contenere le immagini e la descrizione
-function newSlide(image, title, text) {
-    // creo un elemento 
-    const slide = document.createElement("div");
-    slide.className = "slide";
-
-    // ci inserisco le immagini 
-    const imgElement = document.createElement("img");
-    imgElement.src = image;   
-
-    // titolo 
-    const titleElement = document.createElement("h2");
-    titleElement.textContent = title;
-    
-    // descrizione 
-    const descElement = document.createElement("p");
-    descElement.textContent = text;
-
-    
-
-    slide.append(imgElement, titleElement, descElement);
-
-    return slide;
-}
-
-
-
-
-
-// aggiungiamo ogni slide al carosello
 for (let i = 0; i < images.length; i++) {
-    const slide = newSlide(images[i].image, images[i].title, images[i].text);
+    const img = document.createElement("img");
+    img.src = images[i].image;
 
-    // nascondo tutte le slide tranne la prima
-    if (i !== 0) {
-        slide.style.display = "none";
+    // per il primo elemento 
+    if (i === 0) {
+        img.className = "active";
+    } else {
+        img.className = "inactive";
     }
-
-    sliderElement.appendChild(slide);
+    sliderElement.append(img);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// -  salvo un contatore della slide
-let slideNumber = 0;
+let slideNumber = 1;
 
 // -  QUANDO premo la freccia SU
 document.querySelector("#up-arrow").addEventListener("click", function() {
