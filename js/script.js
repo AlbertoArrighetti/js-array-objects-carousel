@@ -7,6 +7,9 @@
 // la nuova immagine attiva diventerà visibile e dovremo aggiungervi titolo e testo.
 
 
+// bersagliamo lo slider
+const sliderElement = document.getElementById("slider");
+
 const images = [
     {
         image: 'img/01.webp',
@@ -32,49 +35,62 @@ const images = [
 ];
 
 
+// creo un elemento per contenere le immagini e la descrizione
+function newSlide(image, title, text) {
+    // creo un elemento 
+    const slide = document.createElement("div");
+    slide.className = "slide";
 
+    // ci inserisco le immagini 
+    const imgElement = document.createElement("img");
+    imgElement.src = image;   
 
+    // titolo 
+    const titleElement = document.createElement("h2");
+    titleElement.textContent = title;
+    
+    // descrizione 
+    const descElement = document.createElement("p");
+    descElement.textContent = text;
 
+    
 
+    slide.append(imgElement, titleElement, descElement);
 
-
-
-
-
-
-// bersagliamo lo slider
-// tramite un ciclo for prendiamo ogni indirizzo delle immagini dall'array
-// per ognuno di essi andremo a creare un elemento img dentro lo slider
-
-console.log(images);
-
-
-// bersagliamo lo slider
-const sliderElement = document.getElementById("slider");
-
-
-// tramite un ciclo for prendiamo ogni indirizzo delle immagini dall'array
-for (let i = 0; i < images.length; i++) {
-
-    sliderElement.innerHTML += `<img src="./img/0${i + 1}.webp" alt="immagine ${i + 1}">`;
-
-    // per ognuno di essi andremo a creare un elemento img dentro lo slider
-
+    return slide;
 }
 
-document.querySelector("#slider img:nth-of-type(1)").className = "active";
 
-/*
--  salvo un contatore della slide
--  QUANDO premo la freccia SU
-    - prendo l'immagine attuale e le rimuovo la classe "active"  
-    - aumento il contatore di 1
-    - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-*/
+
+
+
+// aggiungiamo ogni slide al carosello
+for (let i = 0; i < images.length; i++) {
+    const slide = newSlide(images[i].image, images[i].title, images[i].text);
+
+    // nascondo tutte le slide tranne la prima
+    if (i !== 0) {
+        slide.style.display = "none";
+    }
+
+    sliderElement.appendChild(slide);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // -  salvo un contatore della slide
-let slideNumber = 1;
+let slideNumber = 0;
 
 // -  QUANDO premo la freccia SU
 document.querySelector("#up-arrow").addEventListener("click", function() {
